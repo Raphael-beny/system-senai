@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.senai.sa.entity.Usuario;
-import br.com.senai.sa.exception.UsuarioNaoEncontradoException;
+import br.com.senai.sa.exception.RegistroNaoEncontradoException;
 import br.com.senai.sa.repository.UsuariosRepository;
 
 @Validated
@@ -36,7 +36,17 @@ public class UsuarioService {
 			return usuarioEncontrado.get();
 		}
 		
-		throw new UsuarioNaoEncontradoException("Usuário não encontrado");
+		throw new RegistroNaoEncontradoException("Usuário não encontrado");
+	}
+	
+	public Usuario buscarPor(Integer codigo) {
+		Optional<Usuario> usuarioEncontrado = usuariosRepository.buscarPor(codigo);
+		
+		if(usuarioEncontrado.isPresent()) {
+			return usuarioEncontrado.get();
+		}
+		
+		throw new RegistroNaoEncontradoException("Usuário não encontrado");
 	}
 
 }

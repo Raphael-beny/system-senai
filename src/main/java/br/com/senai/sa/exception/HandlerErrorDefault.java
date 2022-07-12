@@ -102,8 +102,8 @@ public class HandlerErrorDefault {
 	}
 	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(UsuarioNaoEncontradoException.class)
-	public Map<String, Object> handle(UsuarioNaoEncontradoException rnee){
+	@ExceptionHandler(RegistroNaoEncontradoException.class)
+	public Map<String, Object> handle(RegistroNaoEncontradoException rnee){
 		return criarMapDeErro(ErroDaApi.REGISTRO_NAO_ENCONTRADO, rnee.getMessage());
 	}
 	

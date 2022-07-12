@@ -1,6 +1,7 @@
 package br.com.senai.sa.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +14,7 @@ public interface PromissoriasRepository extends JpaRepository<Promissoria, Integ
 			"SELECT p "
 			+ "FROM Promissoria p "
 			+ "WHERE p.codigo = :codigo ")
-	Promissoria buscarPor(Integer codigo);
+	Optional<Promissoria> buscarPor(Integer codigo);
 	
 	@Query(value = 
 			"SELECT p "
