@@ -44,7 +44,7 @@ public class UsuarioController {
 		return ResponseEntity.ok(mapConverter.toJsonMap(usuarioService.alterar(usuario)));
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/codigo/{codigo}")
 	public ResponseEntity<?> removerPor(@PathVariable(name = "codigo") Integer codigo){
 		this.usuarioService.remover(codigo);
 		return ResponseEntity.ok().build();

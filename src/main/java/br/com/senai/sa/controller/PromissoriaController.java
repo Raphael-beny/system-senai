@@ -44,7 +44,7 @@ public class PromissoriaController {
 		return ResponseEntity.ok(mapConverter.toJsonMap(promissoriaService.alterar(promissoria)));
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/codigo/{codigo}")
 	public ResponseEntity<?> removerPor(@PathVariable(name = "codigo") Integer codigo){
 		this.promissoriaService.remover(codigo);
 		return ResponseEntity.ok().build();
@@ -52,7 +52,7 @@ public class PromissoriaController {
 	
 	@GetMapping
 	public ResponseEntity<?> buscarPor(@RequestParam(name = "nome-completo") String nomeCompleto){
-		return ResponseEntity.ok(mapConverter.toJsonMap(promissoriaService.buscarPor(nomeCompleto)));
+		return ResponseEntity.ok(mapConverter.toJsonList(promissoriaService.buscarPor(nomeCompleto)));
 	}
 
 }

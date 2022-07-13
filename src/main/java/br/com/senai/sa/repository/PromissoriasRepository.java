@@ -13,14 +13,17 @@ public interface PromissoriasRepository extends JpaRepository<Promissoria, Integ
 	@Query(value = 
 			"SELECT p "
 			+ "FROM Promissoria p "
+			+ "JOIN FETCH p.cliente c "
+			+ "JOIN FETCH c.usuario "
 			+ "WHERE p.codigo = :codigo ")
 	Optional<Promissoria> buscarPor(Integer codigo);
 	
 	@Query(value = 
 			"SELECT p "
 			+ "FROM Promissoria p "
-			+ "JOIN FETCH p.cliente "
-			+ "WHERE p.cliente.nomeCompleto LIKE :nomeCompleto ")
+			+ "JOIN FETCH p.cliente c "
+			+ "JOIN FETCH c.usuario "
+			+ "WHERE Upper(p.cliente.nomeCompleto) LIKE Upper(:nomeCompleto) ")
 	List<Promissoria> listarPor(String nomeCompleto);
 
 }

@@ -3,6 +3,7 @@ package br.com.senai.sa.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,12 +17,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.senai.sa.entity.enums.Quitado;
+import br.com.senai.sa.validation.AoAlterar;
+import br.com.senai.sa.validation.AoInserir;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -37,7 +41,8 @@ public class Promissoria {
 	@Id
 	@Column(name = "codigo")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull(message = "O código da promissória deve ser obrigatório")
+	@NotNull(message = "O código da promissória deve ser obrigatório", groups = AoAlterar.class)
+	@Null(message = "O código da promissória deve ser nulo", groups = AoInserir.class)
 	@EqualsAndHashCode.Include
 	private Integer codigo;
 	
@@ -60,7 +65,7 @@ public class Promissoria {
 	@Size(min=10, max = 1500, message = "O tamanho do da descrição da promissória deve estar entre 10 e 1500 caracteres")
 	private String descricao;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "codigo_cliente")
 	@NotNull(message = "O cliente da promissória é obrigatório")
 	private Cliente cliente;

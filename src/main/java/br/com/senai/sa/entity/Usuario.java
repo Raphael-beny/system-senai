@@ -10,11 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.senai.sa.entity.enums.Perfil;
+import br.com.senai.sa.validation.AoAlterar;
+import br.com.senai.sa.validation.AoInserir;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -30,14 +33,15 @@ public class Usuario {
 	@Id
 	@Column(name = "codigo")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull(message = "O código do usuario deve ser obrigatório")
+	@NotNull(message = "O código do usuario deve ser obrigatório", groups = AoAlterar.class)
+	@Null(message = "O código do usuario deve ser nulo", groups = AoInserir.class)
 	@EqualsAndHashCode.Include
 	private Integer codigo;
 	
-	@Column(name = "nm_completo")
-	@NotEmpty(message = "O nome completo do usuário é obrigatório")
-	@Size(min=2, max = 50, message = "O tamanho do nome completo do usuário deve estar entre 2 e 50 caracteres")
-	private String nomeCompleto;
+//	@Column(name = "nm_completo")
+//	@NotEmpty(message = "O nome completo do usuário é obrigatório")
+//	@Size(min=2, max = 50, message = "O tamanho do nome completo do usuário deve estar entre 2 e 50 caracteres")
+//	private String nomeCompleto;
 	
 	@Column(name = "login")
 	@NotEmpty(message = "O login do cliente é obrigatório")

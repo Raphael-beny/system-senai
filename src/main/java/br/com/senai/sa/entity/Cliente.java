@@ -2,19 +2,26 @@ package br.com.senai.sa.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import br.com.senai.sa.validation.AoAlterar;
+import br.com.senai.sa.validation.AoInserir;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -30,7 +37,8 @@ public class Cliente {
 	@Id
 	@Column(name = "codigo")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull(message = "O código do cliente deve ser obrigatório")
+	@NotNull(message = "O código do cliente deve ser obrigatório", groups = AoAlterar.class)
+	@Null(message = "O código do cliente deve ser nulo", groups = AoInserir.class)
 	@EqualsAndHashCode.Include
 	private Integer codigo;
 	
@@ -60,14 +68,19 @@ public class Cliente {
 	@Size(min=2, max = 500, message = "O tamanho do endereço completo do cliente deve estar entre 2 e 500 caracteres")
 	private String enderecoCompleto;
 	
-	@Column(name = "login")
-	@NotEmpty(message = "O login do cliente é obrigatório")
-	@Size(min=2, max = 20, message = "O tamanho do login do cliente deve estar entre 2 e 20 caracteres")
-	private String login;
+//	@Column(name = "login")
+//	@NotEmpty(message = "O login do cliente é obrigatório")
+//	@Size(min=2, max = 20, message = "O tamanho do login do cliente deve estar entre 2 e 20 caracteres")
+//	private String login;
+//	
+//	@Column(name = "senha")
+//	@NotEmpty(message = "A senha do cliente é obrigatória")
+//	@Size(min=2, max = 10, message = "A senha do cliente deve estar entre 2 e 10 caracteres")
+//	private String senha;
 	
-	@Column(name = "senha")
-	@NotEmpty(message = "A senha do cliente é obrigatória")
-	@Size(min=2, max = 10, message = "A senha do cliente deve estar entre 2 e 10 caracteres")
-	private String senha;
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "codigo_usuario")
+	@NotNull(message = "O usuário do cliente deve ser obrigatório")
+	private Usuario usuario;
 
 }

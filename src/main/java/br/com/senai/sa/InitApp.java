@@ -23,8 +23,8 @@ public class InitApp {
 	@Bean	
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {			
-			Usuario usuarioLogado = usuarioService.buscarPor("ronaldo.fenomeno", "123456");
-			System.out.println(usuarioLogado.getPerfil());
+//			Usuario usuarioLogado = usuarioService.buscarPor("gustavo.senai", "123456");
+//			System.out.println(usuarioLogado.getPerfil());
 		};
 	}
 

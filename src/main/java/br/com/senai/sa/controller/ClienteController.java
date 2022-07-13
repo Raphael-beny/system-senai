@@ -44,7 +44,7 @@ public class ClienteController {
 		return ResponseEntity.ok(mapConverter.toJsonMap(clienteService.alterar(cliente)));
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/codigo/{codigo}")
 	public ResponseEntity<?> removerPor(@PathVariable(name = "codigo") Integer codigo){
 		this.clienteService.remover(codigo);
 		return ResponseEntity.ok().build();
@@ -52,7 +52,7 @@ public class ClienteController {
 	
 	@GetMapping
 	public ResponseEntity<?> buscarPor(@RequestParam(name = "nome-completo") String nomeCompleto){
-		return ResponseEntity.ok(mapConverter.toJsonMap(clienteService.buscarPor(nomeCompleto)));
+		return ResponseEntity.ok(mapConverter.toJsonList(clienteService.buscarPor(nomeCompleto)));
 	}
 
 }

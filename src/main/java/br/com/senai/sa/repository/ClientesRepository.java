@@ -13,13 +13,15 @@ public interface ClientesRepository extends JpaRepository<Cliente, Integer>{
 	@Query(value = 
 			"SELECT c "
 			+ "FROM Cliente c "
+			+ "JOIN FETCH c.usuario "
 			+ "WHERE c.codigo = :codigo ")
 	Optional<Cliente> buscarPor(Integer codigo);
 	
 	@Query(value = 
 			"SELECT c "
 			+ "FROM Cliente c "
-			+ "WHERE c.nomeCompleto LIKE :nomeCompleto ")
+			+ "JOIN FETCH c.usuario "
+			+ "WHERE Upper(c.nomeCompleto) LIKE Upper(:nomeCompleto) ")
 	List<Cliente> listarPor(String nomeCompleto);
 
 }
