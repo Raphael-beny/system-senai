@@ -65,7 +65,7 @@ public class Promissoria {
 	@Size(min=10, max = 1500, message = "O tamanho do da descrição da promissória deve estar entre 10 e 1500 caracteres")
 	private String descricao;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
 	@JoinColumn(name = "codigo_cliente")
 	@NotNull(message = "O cliente da promissória é obrigatório")
 	private Cliente cliente;
